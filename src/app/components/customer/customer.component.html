@@ -1,0 +1,16 @@
+<table class="table">
+    <thead>
+        <tr>
+            <th>Müşteri Id</th>
+            <th>Kullanıcı Id</th>
+            <th>Şirket</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let customer of customers">
+            <td>{{customer.id}}</td>
+            <td>{{customer.userId}}</td>
+            <td>{{customer.companyName}}</td>            
+        </tr>
+    </tbody>
+</table>
