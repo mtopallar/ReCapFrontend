@@ -1,3 +1,5 @@
+<h3>Markalar</h3>
 <ul class="list-group">
-  <li class="list-group-item" *ngFor="let brand of brands">{{ brand.name }}</li>
+  <li (click)="setCurrentBrand(brand)" routerLink="/cars/brand/{{brand.id}}"  *ngFor="let brand of brands" [class]="getCurrentBrandClass(brand)">{{brand.id}} - {{ brand.name}}</li>
 </ul>
+<h6 *ngIf="currentBrand!=null">{{currentBrand.name}} seçtiniz.</h6>

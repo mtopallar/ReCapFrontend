@@ -1,6 +1,7 @@
 <table class="table">
     <thead>
         <tr>
+            <th>Id</th>
             <th>Model</th>
             <th>Marka</th>
             <th>Renk</th>
@@ -8,11 +9,12 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let car of cars">
+        <tr *ngFor="let car of carDetailDto">
+            <td>{{car.carId}}</td>
             <td>{{car.carName}}</td>
             <td>{{car.brandName}}</td>
             <td>{{car.colorName}}</td>
-            <td>{{car.dailyPrice}}</td>
+            <td>{{car.dailyPrice}}₺</td>
         </tr>
     </tbody>
 </table>
