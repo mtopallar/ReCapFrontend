@@ -1,6 +1,52 @@
-<p>car-detail-with-image works!</p>
-<ul>
-    <li>{{carDetails.carName}}</li>
-    <li>{{carDetails.description}}</li>
-    <li *ngFor="let images of carDetails.carImages">{{images.imagePath}}</li>
-</ul>
+<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner">
+      <div *ngFor="let carImage of carDetails.carImages" [class]="getCurrentSlideClass(carImage)">
+        <img src="{{imageUrl}}{{carImage.imagePath}}" class="d-block w-100" alt="..." style="width: auto; height: 300px;">
+      </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"  data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls"  data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div> 
+
+  <table class="table table-striped">
+    <thead>
+      
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">Model</th>
+        <td>{{carDetails.carName}}</td>        
+      </tr>
+      <tr>
+        <th scope="row">Marka</th>
+        <td>{{carDetails.brandName}}</td>        
+      </tr>
+      <tr>
+        <th scope="row">Açıklama</th>
+        <td>{{carDetails.description}}</td>        
+      </tr>
+      <tr>
+        <th scope="row">Model Yılı</th>
+        <td>{{carDetails.modelYear}}</td>        
+      </tr>
+      <tr>
+        <th scope="row">Renk</th>
+        <td>{{carDetails.colorName}}</td>        
+      </tr>
+      <tr>
+        <th scope="row">Kiralama Ücreti</th>
+        <td>{{carDetails.dailyPrice}}</td>        
+      </tr>
+    </tbody>
+  </table>
+
+ 
+    
+  
+  

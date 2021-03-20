@@ -9,7 +9,7 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let car of carDetailDto">
+        <tr (click)="setCurrentCar(car)" [class]="getCurrentCarClass(car)" routerLink="/cars/cardetails/{{car.carId}}" *ngFor="let car of carDetailDto">
             <td>{{car.carId}}</td>
             <td>{{car.carName}}</td>
             <td>{{car.brandName}}</td>
@@ -18,3 +18,30 @@
         </tr>
     </tbody>
 </table>
+
+<!-- Şu kısım araba detay da güzel olabilir ancak modeline (DTO) resim eklemem gerek.
+<div class="row">
+  <div *ngFor="let image of carDetails.carImages" class="card" style="width: 18rem;">
+    <img src="{{imageUrl}}{{image.imagePath}}" class="card-img-top"  width="auto" height="auto">
+    
+    <div  class="card-body">
+      <h5 class="card-title">{{carDetails.description}}</h5>
+    </div >
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">Brand: {{carDetails.brandName}}</li>
+      <li class="list-group-item">Color: {{carDetails.colorName}}</li>
+      <li class="list-group-item">Model Year: {{carDetails.modelYear}}</li>
+      <li class="list-group-item">Price: {{carDetails.dailyPrice}} TL</li>
+      
+    </ul>
+    <div class="card-body">
+      <section style="float:left">
+        <button type="button" class="btn btn-primary">Details</button>
+      </section>
+      <section style="float: right">
+        <button type="button" class="btn btn-primary">Rent</button>
+      </section>
+    </div>
+  </div> -->
+
+<!-- <img src="https://localhost:44398/CarImages/CarRentalDefault.jpg"> -->

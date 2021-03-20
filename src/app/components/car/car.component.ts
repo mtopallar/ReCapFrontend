@@ -10,6 +10,7 @@ import { CarService } from 'src/app/services/car.service';
 })
 export class CarComponent implements OnInit {
   carDetailDto: CarDetailDto[] = [];
+  currentCar:CarDetailDto
 
   constructor(
     private carService: CarService,
@@ -27,6 +28,16 @@ export class CarComponent implements OnInit {
         this.getCars();        
       }
     });
+  }
+  getCurrentCarClass(car:CarDetailDto){
+    if(car==this.currentCar){
+      return "table-success"
+    }else{
+      return "table"
+    }
+  }
+  setCurrentCar(car:CarDetailDto){
+    this.currentCar=car
   }
 
   getCars() {
