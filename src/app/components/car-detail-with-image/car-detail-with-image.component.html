@@ -1,4 +1,5 @@
-<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+<div class="container">
+  <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-inner">
       <div *ngFor="let carImage of carDetails.carImages" [class]="getCurrentSlideClass(carImage)">
         <img src="{{imageUrl}}{{carImage.imagePath}}" class="d-block w-100" alt="..." style="width: auto; height: 300px;">
@@ -45,6 +46,13 @@
       </tr>
     </tbody>
   </table>
+  <div class="d-grid gap-2 d-md-flex justify-content-md-end">    
+    <button routerLink="" class="btn btn-success" type="button">Kirala</button>
+    <button routerLink="/cars/" class="btn btn-success" type="button">Araç Listesi</button>
+  </div>
+  
+</div>
+
 
  
     

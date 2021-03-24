@@ -1,92 +1,65 @@
-<div class="row" >
-  
-<div class="col-md-4">
-  <div class="mb-3">    
-    <input
-      type="text"
-      [(ngModel)]="carNameFilterText"
-      class="form-control"
-      id="filterText"
-      placeholder="Model ara..."
-    />
-  </div>
-</div>
-<div class="col-md-3">
-  <div class="input-group mb-3">
-    <label class="input-group-text" for="inputGroupSelect01">Marka</label>
-    <select class="form-select" id="inputGroupSelect01">
-      <option selected>Marka Seç</option>
-      <option *ngFor="let brand of brands" value="{{brand.name}}">{{brand.name}}</option>      
-    </select>
-  </div>
-</div>
-<div class="col-md-3">
-  <div class="input-group mb-3">
-    <label class="input-group-text" for="inputGroupSelect01">Renk</label>
-    <select class="form-select" id="inputGroupSelect01">
-      <option selected>Renk Seç</option>
-      <option *ngFor="let color of colors" value="{{color.name}}">{{color.name}}</option>      
-    </select>
-  </div>
-</div>
-<div class="col-md-2">
-  <div class="input-group mb-3">
-<button class="btn btn-success">Filtrele</button>
-  </div>  
-</div>
-
-</div>
-
-
-<table class="table">
-  <thead>
-    <tr>
-      <th>Id</th>
-      <th>Model</th>
-      <th>Marka</th>
-      <th>Renk</th>
-      <th>Günlük Kira Bedeli</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr
-      (click)="setCurrentCar(car)"
-      [class]="getCurrentCarClass(car)"
-      routerLink="/cars/cardetails/{{ car.carId }}"
-      *ngFor="let car of carDetailDto | carNameFilterPipe:carNameFilterText"
-    >
-      <td>{{ car.carId }}</td>
-      <td>{{ car.carName }}</td>
-      <td>{{ car.brandName }}</td>
-      <td>{{ car.colorName }}</td>
-      <td>{{ car.dailyPrice }}₺</td>
-    </tr>
-  </tbody>
-</table>
-
-<!-- Şu kısım araba detay da güzel olabilir ancak modeline (DTO) resim eklemem gerek.
 <div class="row">
-  <div *ngFor="let image of carDetails.carImages" class="card" style="width: 18rem;">
-    <img src="{{imageUrl}}{{image.imagePath}}" class="card-img-top"  width="auto" height="auto">
-    
-    <div  class="card-body">
-      <h5 class="card-title">{{carDetails.description}}</h5>
-    </div >
+  <div class="col-md-4">
+    <div class="mb-3">
+      <input
+        type="text"
+        [(ngModel)]="carNameFilterText"
+        class="form-control"
+        id="filterText"
+        placeholder="Model ara..."
+      />
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="input-group mb-3">
+      <label class="input-group-text" for="inputGroupSelect01">Marka</label>
+      <select class="form-select" id="inputGroupSelect01">
+        <option selected>Marka Seç</option>
+        <option *ngFor="let brand of brands" value="{{ brand.name }}">
+          {{ brand.name }}
+        </option>
+      </select>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="input-group mb-3">
+      <label class="input-group-text" for="inputGroupSelect01">Renk</label>
+      <select class="form-select" id="inputGroupSelect01">
+        <option selected>Renk Seç</option>
+        <option *ngFor="let color of colors" value="{{ color.name }}">
+          {{ color.name }}
+        </option>
+      </select>
+    </div>
+  </div>
+  <div class="col-md-2">
+    <div class="input-group mb-3">
+      <button class="btn btn-success">Filtrele</button>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div *ngFor="let car of carDetailDto | carNameFilterPipe:carNameFilterText" class="card" style="width: 18rem;">
+    <img
+      src="{{ imageUrl }}{{ car.imageForCarList.imagePath }}"
+      class="card-img-top" style="height: 7rem;"
+    />
+    <div class="card-body">
+      <h5 class="card-title">{{ car.carName }}</h5>
+      <p class="card-text" style="height: 3rem">{{ car.description }}</p>
+    </div>
     <ul class="list-group list-group-flush">
-      <li class="list-group-item">Brand: {{carDetails.brandName}}</li>
-      <li class="list-group-item">Color: {{carDetails.colorName}}</li>
-      <li class="list-group-item">Model Year: {{carDetails.modelYear}}</li>
-      <li class="list-group-item">Price: {{carDetails.dailyPrice}} TL</li>
-      
+      <li class="list-group-item"><strong>{{ car.brandName }}</strong></li>
+      <li class="list-group-item">{{ car.colorName }}</li>
+      <li class="list-group-item">Günlük {{car.dailyPrice}} ₺</li>
     </ul>
     <div class="card-body">
-      <section style="float:left">
-        <button type="button" class="btn btn-primary">Details</button>
-      </section>
-      <section style="float: right">
-        <button type="button" class="btn btn-primary">Rent</button>
-      </section>
+      <div class="d-grid gap-2 d-md-flex justify-content-between">
+        <button routerLink="/cars/cardetails/{{ car.carId }}" class="btn btn-success" type="button">Detay</button>
+        <button class="btn btn-success" type="button">Kirala</button>
+      </div>
     </div>
-  </div> -->
+  </div>
+</div>
 
-<!-- <img src="https://localhost:44398/CarImages/CarRentalDefault.jpg"> -->
