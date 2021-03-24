@@ -1,22 +1,71 @@
+<div class="row" >
+  
+<div class="col-md-4">
+  <div class="mb-3">    
+    <input
+      type="text"
+      [(ngModel)]="carNameFilterText"
+      class="form-control"
+      id="filterText"
+      placeholder="Model ara..."
+    />
+  </div>
+</div>
+<div class="col-md-3">
+  <div class="input-group mb-3">
+    <label class="input-group-text" for="inputGroupSelect01">Marka</label>
+    <select class="form-select" id="inputGroupSelect01">
+      <option selected>Marka Seç</option>
+      <option value="1">One</option>
+      <option value="2">Two</option>
+      <option value="3">Three</option>
+    </select>
+  </div>
+</div>
+<div class="col-md-3">
+  <div class="input-group mb-3">
+    <label class="input-group-text" for="inputGroupSelect01">Renk</label>
+    <select class="form-select" id="inputGroupSelect01">
+      <option selected>Renk Seç</option>
+      <option value="1">One</option>
+      <option value="2">Two</option>
+      <option value="3">Three</option>
+    </select>
+  </div>
+</div>
+<div class="col-md-2">
+  <div class="input-group mb-3">
+<button class="btn btn-success">Filtrele</button>
+  </div>  
+</div>
+
+</div>
+
+
 <table class="table">
-    <thead>
-        <tr>
-            <th>Id</th>
-            <th>Model</th>
-            <th>Marka</th>
-            <th>Renk</th>
-            <th>Günlük Kira Bedeli</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr (click)="setCurrentCar(car)" [class]="getCurrentCarClass(car)" routerLink="/cars/cardetails/{{car.carId}}" *ngFor="let car of carDetailDto">
-            <td>{{car.carId}}</td>
-            <td>{{car.carName}}</td>
-            <td>{{car.brandName}}</td>
-            <td>{{car.colorName}}</td>
-            <td>{{car.dailyPrice}}₺</td>
-        </tr>
-    </tbody>
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Model</th>
+      <th>Marka</th>
+      <th>Renk</th>
+      <th>Günlük Kira Bedeli</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr
+      (click)="setCurrentCar(car)"
+      [class]="getCurrentCarClass(car)"
+      routerLink="/cars/cardetails/{{ car.carId }}"
+      *ngFor="let car of carDetailDto | carNameFilterPipe:carNameFilterText"
+    >
+      <td>{{ car.carId }}</td>
+      <td>{{ car.carName }}</td>
+      <td>{{ car.brandName }}</td>
+      <td>{{ car.colorName }}</td>
+      <td>{{ car.dailyPrice }}₺</td>
+    </tr>
+  </tbody>
 </table>
 
 <!-- Şu kısım araba detay da güzel olabilir ancak modeline (DTO) resim eklemem gerek.
