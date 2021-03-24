@@ -16,9 +16,7 @@
     <label class="input-group-text" for="inputGroupSelect01">Marka</label>
     <select class="form-select" id="inputGroupSelect01">
       <option selected>Marka Seç</option>
-      <option value="1">One</option>
-      <option value="2">Two</option>
-      <option value="3">Three</option>
+      <option *ngFor="let brand of brands" value="{{brand.name}}">{{brand.name}}</option>      
     </select>
   </div>
 </div>
@@ -27,9 +25,7 @@
     <label class="input-group-text" for="inputGroupSelect01">Renk</label>
     <select class="form-select" id="inputGroupSelect01">
       <option selected>Renk Seç</option>
-      <option value="1">One</option>
-      <option value="2">Two</option>
-      <option value="3">Three</option>
+      <option *ngFor="let color of colors" value="{{color.name}}">{{color.name}}</option>      
     </select>
   </div>
 </div>
