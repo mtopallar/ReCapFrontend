@@ -1,11 +1,11 @@
-import { CarImage } from "./carImage";
-
-export interface CarDetailDto{
+export interface CarDetailWithoutAnyImageDto{
     carId:number,
+    brandId:number,
+    colorId:number,
     carName:string,
     brandName:string,
     colorName:string,
     dailyPrice:number,
     description:string,
-    imageForCarList:CarImage
+    modelYear:number,
 }

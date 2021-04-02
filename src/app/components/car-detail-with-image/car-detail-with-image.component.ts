@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
-import { CarDetailsWithImage } from 'src/app/models/carDetailsWithImage';
+import { CarDetailWithoutAnyImageDto } from 'src/app/models/carDetailWithoutAnyImageDto';
 import { CarImage } from 'src/app/models/carImage';
-import { CarDetailWithImageService } from 'src/app/services/car-detail-with-image.service';
+import { CarImageService } from 'src/app/services/car-image.service';
+import { CarService } from 'src/app/services/car.service';
 
 @Component({
   selector: 'app-car-detail-with-image',
@@ -11,27 +11,35 @@ import { CarDetailWithImageService } from 'src/app/services/car-detail-with-imag
   styleUrls: ['./car-detail-with-image.component.css'],
 })
 export class CarDetailWithImageComponent implements OnInit {
-  carDetails: CarDetailsWithImage;
   
+  carDetailDto:CarDetailWithoutAnyImageDto;
+  carImages:CarImage[];
   imageUrl:string="https://localhost:44398/CarImages/"
 
-  constructor(private carDetailWithImageService: CarDetailWithImageService, private activatedRoute:ActivatedRoute, private domSanitizer: DomSanitizer) {}
+  constructor(private carService:CarService,private carImageService:CarImageService, private activatedRoute:ActivatedRoute) {}
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((params=> {
       this.getCarDetails(params["carId"]);
+      this.getImageListByCarId(params["carId"]);
     }))
     
   }
-  getCarDetails(carId: number) {
-    this.carDetailWithImageService
-      .getCarDetails(carId)
-      .subscribe((response) => {
-        this.carDetails = response.data;                
-      });
+
+  getCarDetails(carId:number){
+    this.carService.getCarDetailDtoByCarId(carId).subscribe((response)=>{
+      this.carDetailDto=response.data      
+    })
   }
+
+  getImageListByCarId(carId:number){
+    this.carImageService.getImageListByCarId(carId).subscribe((response)=>{
+      this.carImages=response.data      
+    })
+  }
+ 
   getCurrentSlideClass(carImage:CarImage){
-    if (carImage == this.carDetails.carImages[0]) {
+    if (carImage == this.carImages[0]) {
       return "carousel-item active"
     }
     return "carousel-item"

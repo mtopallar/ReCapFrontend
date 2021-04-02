@@ -1,7 +1,7 @@
 <div class="container">
   <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-inner">
-      <div *ngFor="let carImage of carDetails.carImages" [class]="getCurrentSlideClass(carImage)">
+      <div *ngFor="let carImage of carImages" [class]="getCurrentSlideClass(carImage)">
         <img src="{{imageUrl}}{{carImage.imagePath}}" class="d-block w-100" alt="..." style="width: auto; height: 300px;">
       </div>
     </div>
@@ -22,27 +22,27 @@
     <tbody>
       <tr>
         <th scope="row">Model</th>
-        <td>{{carDetails.carName}}</td>        
+        <td>{{carDetailDto.carName}}</td>        
       </tr>
       <tr>
         <th scope="row">Marka</th>
-        <td>{{carDetails.brandName}}</td>        
+        <td>{{carDetailDto.brandName}}</td>        
       </tr>
       <tr>
         <th scope="row">Açıklama</th>
-        <td>{{carDetails.description}}</td>        
+        <td>{{carDetailDto.description}}</td>        
       </tr>
       <tr>
         <th scope="row">Model Yılı</th>
-        <td>{{carDetails.modelYear}}</td>        
+        <td>{{carDetailDto.modelYear}}</td>        
       </tr>
       <tr>
         <th scope="row">Renk</th>
-        <td>{{carDetails.colorName}}</td>        
+        <td>{{carDetailDto.colorName}}</td>        
       </tr>
       <tr>
         <th scope="row">Kiralama Ücreti</th>
-        <td>{{carDetails.dailyPrice}}</td>        
+        <td>{{carDetailDto.dailyPrice}}</td>        
       </tr>
     </tbody>
   </table>
