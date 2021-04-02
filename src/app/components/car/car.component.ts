@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Brand } from 'src/app/models/brand';
 import { CarDetailWithMainImageDto } from 'src/app/models/carDetailWithMainImageDto';
-import { CarImage } from 'src/app/models/carImage';
 import { Color } from 'src/app/models/color';
 import { BrandService } from 'src/app/services/brand.service';
 import { CarService } from 'src/app/services/car.service';
@@ -21,13 +20,16 @@ export class CarComponent implements OnInit {
   colorNameFilterText = ''; 
   brands: Brand[];
   colors: Color[];
+  //test
+  selectedBrandId:number
+  selectedColorId:number
  
 
   constructor(
     private carService: CarService,    
     private brandService: BrandService,
     private colorService: ColorService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
   ) {}
 
   ngOnInit(): void {
@@ -51,7 +53,11 @@ export class CarComponent implements OnInit {
     });
   }
 
-  
+  //Test
+  checkSelecteds(){
+    console.log(this.selectedBrandId)
+    console.log(this.selectedColorId)
+  }
 
   getCarsByBrandId(brandId: number) {
     this.carService.getCarsByBrandId(brandId).subscribe((response) => {

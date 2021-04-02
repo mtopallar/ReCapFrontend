@@ -12,29 +12,29 @@
   </div>
   <div class="col-md-3">
     <div class="input-group mb-3">
-      <label class="input-group-text" for="inputGroupSelect01">Marka</label>
-      <select class="form-select" id="inputGroupSelect01">
-        <option selected>Marka Seç</option>
-        <option *ngFor="let brand of brands" value="{{ brand.name }}">
-          {{ brand.name }}
+      <label class="input-group-text" for="inputBrandSelection">Marka</label>
+      <select [(ngModel)]="selectedBrandId" class="form-select" id="inputBrandSelection">
+        <option *ngIf="selectedBrandId!=0" selected >Marka Seç</option>
+        <option *ngFor="let brand of brands" value="{{ brand.id }}">
+          {{ brand.name }} 
         </option>
       </select>
     </div>
   </div>
   <div class="col-md-3">
     <div class="input-group mb-3">
-      <label class="input-group-text" for="inputGroupSelect01">Renk</label>
-      <select class="form-select" id="inputGroupSelect01">
+      <label class="input-group-text" for="inputColorSelection">Renk</label>
+      <select class="form-select" id="inputColorSelection">
         <option selected>Renk Seç</option>
-        <option *ngFor="let color of colors" value="{{ color.name }}">
-          {{ color.name }}
+        <option *ngFor="let color of colors" value="{{ color.id }}">
+          {{ color.name }} 
         </option>
       </select>
     </div>
   </div>
   <div class="col-md-2">
     <div class="input-group mb-3">
-      <button class="btn btn-success">Filtrele</button>
+      <button class="btn btn-success" (click)="checkSelecteds()" >Filtrele</button>
     </div>
   </div>
 </div>
