@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row container">
   <div class="col-md-4">
     <div class="mb-3">
       <input
@@ -13,9 +13,9 @@
   <div class="col-md-3">
     <div class="input-group mb-3">
       <label class="input-group-text" for="inputBrandSelection">Marka</label>
-      <select [(ngModel)]="selectedBrandId" class="form-select" id="inputBrandSelection">
-        <option *ngIf="selectedBrandId!=0" selected >Marka Seç</option>
-        <option *ngFor="let brand of brands" value="{{ brand.id }}">
+      <select [(ngModel)]="selectedBrandIdText" class="form-select" id="inputBrandSelection">
+        <option value="Marka Seç" selected >Marka Seç</option>
+        <option *ngFor="let brand of brands" [value]="brand.id">
           {{ brand.name }} 
         </option>
       </select>
@@ -24,9 +24,9 @@
   <div class="col-md-3">
     <div class="input-group mb-3">
       <label class="input-group-text" for="inputColorSelection">Renk</label>
-      <select class="form-select" id="inputColorSelection">
-        <option selected>Renk Seç</option>
-        <option *ngFor="let color of colors" value="{{ color.id }}">
+      <select [(ngModel)]="selectedColorIdText" class="form-select" id="inputColorSelection">
+        <option value="Renk Seç" selected>Renk Seç</option>
+        <option *ngFor="let color of colors" [value]="color.id">
           {{ color.name }} 
         </option>
       </select>
@@ -34,13 +34,13 @@
   </div>
   <div class="col-md-2">
     <div class="input-group mb-3">
-      <button class="btn btn-success" (click)="checkSelecteds()" >Filtrele</button>
+      <button class="btn btn-success" (click)="filterByFilterBar()">Filtrele</button>
     </div>
   </div>
 </div>
 
-<div class="row">
-  <div *ngFor="let car of carDetailDto | carNameFilterPipe:carNameFilterText" class="card" style="width: 18rem;">
+<div class="row container"> 
+ <div *ngFor="let car of carDetailDto | carNameFilterPipe:carNameFilterText" class="card " style="padding:auto; padding-top: 10px; width: 18rem;">
     <img
       src= "{{imageUrl}}{{car.mainImage.imagePath}}"
       class="card-img-top" style="height: 7rem;"

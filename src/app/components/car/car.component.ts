@@ -17,19 +17,20 @@ export class CarComponent implements OnInit {
   imageUrl: string = 'https://localhost:44398/CarImages/';
   carNameFilterText = '';
   brandNameFilterText = '';
-  colorNameFilterText = ''; 
+  colorNameFilterText = '';
   brands: Brand[];
   colors: Color[];
-  //test
-  selectedBrandId:number
-  selectedColorId:number
- 
+  //For Filter Bar
+  selectedBrandIdText: string = 'Marka Seç';
+  selectedColorIdText: string = 'Renk Seç';
+  selectedBrandId: number;
+  selectedColorId: number;
 
   constructor(
-    private carService: CarService,    
+    private carService: CarService,
     private brandService: BrandService,
     private colorService: ColorService,
-    private activatedRoute: ActivatedRoute,
+    private activatedRoute: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
@@ -39,24 +40,17 @@ export class CarComponent implements OnInit {
       } else if (params['colorId']) {
         this.getCarsByColorId(params['colorId']);
       } else {
-        this.getCars();        
+        this.getCars();
       }
     });
     this.getBrandsFromBrandService();
-    this.getColorsFromColorService();    
-    
+    this.getColorsFromColorService();
   }
 
   getCars() {
     this.carService.getCars().subscribe((response) => {
-      this.carDetailDto = response.data;     
+      this.carDetailDto = response.data;
     });
-  }
-
-  //Test
-  checkSelecteds(){
-    console.log(this.selectedBrandId)
-    console.log(this.selectedColorId)
   }
 
   getCarsByBrandId(brandId: number) {
@@ -71,6 +65,14 @@ export class CarComponent implements OnInit {
     });
   }
 
+  getCarsByBrandIdAndColorId(brandId: number, colorId: number) {
+    this.carService
+      .getCarsByBrandIdAndColorId(brandId, colorId)
+      .subscribe((response) => {
+        this.carDetailDto = response.data;
+      });
+  }
+
   getBrandsFromBrandService() {
     this.brandService.getBrands().subscribe((response) => {
       this.brands = response.data;
@@ -80,5 +82,39 @@ export class CarComponent implements OnInit {
     this.colorService.getColors().subscribe((response) => {
       this.colors = response.data;
     });
+  }
+
+  //For Filter Bar
+  filterByFilterBar() {
+    this.colorIdSetter();
+    this.brandIdSetter();
+    if (this.selectedBrandId != null && this.selectedColorId == null) {
+      this.getCarsByBrandId(this.selectedBrandId);
+    } else if (this.selectedBrandId == null && this.selectedColorId != null) {
+      this.getCarsByColorId(this.selectedColorId);
+    } else if (this.selectedBrandId != null && this.selectedColorId != null) {
+      this.getCarsByBrandIdAndColorId(
+        this.selectedBrandId,
+        this.selectedColorId
+      );
+    } else this.getCars();
+  }
+
+  colorIdSetter() {
+    let id = parseInt(this.selectedColorIdText);
+    if (this.selectedColorIdText != 'Renk Seç') {
+      this.selectedColorId = id;
+    } else {
+      this.selectedColorId = null;
+    }
+  }
+  
+  brandIdSetter() {
+    let id = parseInt(this.selectedBrandIdText);
+    if (this.selectedBrandIdText != 'Marka Seç') {
+      this.selectedBrandId = id;
+    } else {
+      this.selectedBrandId = null;
+    }
   }
 }
