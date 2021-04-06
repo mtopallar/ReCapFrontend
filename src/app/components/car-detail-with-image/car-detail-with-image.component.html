@@ -15,7 +15,7 @@
     </button>
   </div> 
 
-  <table class="table table-striped">
+  <table *ngIf="getCarDetailsDataLoaded == true" class="table table-striped">
     <thead>
       <tr>
         <th></th>
@@ -49,8 +49,8 @@
       </tr>
     </tbody>
   </table>
-  <div class="d-grid gap-2 d-md-flex justify-content-md-end">    
-    <button routerLink="" class="btn btn-success" type="button">Kirala</button>
+  <div *ngIf="getCarDetailsDataLoaded == true" class="d-grid gap-2 d-md-flex justify-content-md-end">    
+    <button routerLink="/rentcar/carId/{{ carDetailDto.carId}}" class="btn btn-success" type="button">Kirala</button>
     <button routerLink="/cars/" class="btn btn-success" type="button">Araç Listesi</button>
   </div>
   

@@ -15,6 +15,7 @@ export class CarDetailWithImageComponent implements OnInit {
   carDetailDto:CarDetailWithoutAnyImageDto;
   carImages:CarImage[];
   imageUrl:string="https://localhost:44398/CarImages/"
+  getCarDetailsDataLoaded=false
 
   constructor(private carService:CarService,private carImageService:CarImageService, private activatedRoute:ActivatedRoute) {}
 
@@ -28,7 +29,8 @@ export class CarDetailWithImageComponent implements OnInit {
 
   getCarDetails(carId:number){
     this.carService.getCarDetailDtoByCarId(carId).subscribe((response)=>{
-      this.carDetailDto=response.data      
+      this.carDetailDto=response.data;  
+      this.getCarDetailsDataLoaded=true         
     })
   }
 

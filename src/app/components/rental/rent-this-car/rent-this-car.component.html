@@ -1,0 +1,108 @@
+<div *ngIf="carDetailDtoDataLoaded==true" class="container">
+  <h4>{{ carDetailDto.brandName }} {{ carDetailDto.carName }} Kirala</h4>
+  <form [formGroup]="rentalAddForm" (ngSubmit)="add()">
+    <div class="mb-3">
+      <h6>Müşteri Id'si</h6>
+      <input
+        type="number"
+        id="customerId"
+        name="customerId"
+        formControlName="customerId"
+        class="form-control"
+        placeholder="Müşteri Id'si"
+      />
+      <div
+        class="alert alert-danger"
+        *ngIf="
+          rentalAddForm.get('customerId').hasError('required') &&
+          rentalAddForm.get('customerId').dirty
+        "
+      >
+        Müşteri Id Zorunludur.
+      </div>
+    </div>
+    <div class="mb-3">
+      <h6>Kira Başlangıç Tarihi</h6>
+      <input
+        type="date"
+        id="rentDate"
+        name="rentDate"
+        formControlName="rentDate"
+        class="form-control"
+      />
+      <div
+        class="alert alert-danger"
+        *ngIf="
+          rentalAddForm.get('rentDate').hasError('required') &&
+          rentalAddForm.get('rentDate').touched
+        "
+      >
+        Kira Başlangıç Tarihi Zorunludur.
+      </div>
+    </div>
+    <div class="mb-3">
+      <h6>Kira Bitiş Tarihi</h6>
+      <input
+        type="date"
+        id="returnDate"
+        name="returnDate"
+        formControlName="returnDate"
+        class="form-control"
+      />
+      <div
+        class="alert alert-danger"
+        *ngIf="
+          rentalAddForm.get('returnDate').hasError('required') &&
+          rentalAddForm.get('returnDate').touched
+        "
+      >
+        Kira Bitiş Tarihi Zorunludur.
+      </div>
+    </div>
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+      <button
+        type="submit"
+        class="btn btn-success"
+        [disabled]="rentalAddForm.invalid"
+      >
+        Kirala
+      </button>
+      <button class="btn btn-success" type="button" routerLink="/cars/cardetails/{{carDetailDto.carId}}">Araç Detayları</button>
+    </div>
+  </form>
+  <h4>Araç Bilgileri</h4>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">Model</th>
+        <td>{{ carDetailDto.carName }}</td>
+      </tr>
+      <tr>
+        <th scope="row">Marka</th>
+        <td>{{ carDetailDto.brandName }}</td>
+      </tr>
+      <tr>
+        <th scope="row">Açıklama</th>
+        <td>{{ carDetailDto.description }}</td>
+      </tr>
+      <tr>
+        <th scope="row">Model Yılı</th>
+        <td>{{ carDetailDto.modelYear }}</td>
+      </tr>
+      <tr>
+        <th scope="row">Renk</th>
+        <td>{{ carDetailDto.colorName }}</td>
+      </tr>
+      <tr>
+        <th scope="row">Kiralama Ücreti</th>
+        <td>{{ carDetailDto.dailyPrice }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
