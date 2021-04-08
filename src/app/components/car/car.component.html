@@ -5,8 +5,9 @@
         type="text"
         [(ngModel)]="carNameFilterText"
         class="form-control"
-        id="filterText"
-        placeholder="Model ara..."
+        id="filterTextForModel"
+        placeholder="Listede model ara..."
+        [disabled]="responseCount==true"
       />
     </div>
   </div>
@@ -38,6 +39,13 @@
     </div>
   </div>
 </div>
+
+<div *ngIf="responseCount==true" class="container" style="align-content: center;">
+<div class="alert alert-danger" style="text-align: center" role="alert">
+  Aradığınız kriterlerde araç bulunmamaktadır. Flitreyi değiştirerek yeniden deneyiniz.
+</div>
+</div>
+
 
 <div class="row container"> 
  <div *ngFor="let car of carDetailDto | carNameFilterPipe:carNameFilterText" class="card " style="padding:auto; padding-top: 10px; width: 18rem;">

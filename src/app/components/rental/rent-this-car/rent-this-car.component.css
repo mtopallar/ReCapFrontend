@@ -4,3 +4,10 @@
     line-height:30px;
     padding:0px 15px;
   }
+  .mat-stepper-vertical {
+    margin-top: 8px;
+  }
+  
+  .mat-form-field {
+    margin-top: 16px;
+  }

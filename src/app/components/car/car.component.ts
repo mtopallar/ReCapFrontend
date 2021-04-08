@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Brand } from 'src/app/models/brand';
 import { CarDetailWithMainImageDto } from 'src/app/models/carDetailWithMainImageDto';
 import { Color } from 'src/app/models/color';
@@ -25,12 +26,14 @@ export class CarComponent implements OnInit {
   selectedColorIdText: string = 'Renk Seç';
   selectedBrandId: number;
   selectedColorId: number;
+  responseCount=false;
 
   constructor(
     private carService: CarService,
     private brandService: BrandService,
     private colorService: ColorService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private toastrService:ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -70,6 +73,10 @@ export class CarComponent implements OnInit {
       .getCarsByBrandIdAndColorId(brandId, colorId)
       .subscribe((response) => {
         this.carDetailDto = response.data;
+        if(response.data.length===0){  
+          this.responseCount=true        
+          this.toastrService.error("Aradığınız kriterde araç bulunmamaktadır. Farklı kriterler ile yeniden deneyiniz.")  
+        }
       });
   }
 
@@ -88,6 +95,7 @@ export class CarComponent implements OnInit {
   filterByFilterBar() {
     this.colorIdSetter();
     this.brandIdSetter();
+    this.responseCount=false;
     if (this.selectedBrandId != null && this.selectedColorId == null) {
       this.getCarsByBrandId(this.selectedBrandId);
     } else if (this.selectedBrandId == null && this.selectedColorId != null) {

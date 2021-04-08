@@ -1,6 +1,6 @@
 <h3>Markalar</h3>
 <div class="mb-3">  
-  <input type="text" [(ngModel)]="brandFilterText" class="form-control" id="filterText" placeholder="Marka ara...">
+  <input type="text" [(ngModel)]="brandFilterText" class="form-control" id="filterTextForBrand" placeholder="Marka ara...">
 </div>
 <ul class="list-group">
   <li (click)="currentBrandResetter(nullBrand)" routerLink="/cars/" [class]="getAllBrandsClass()">Tüm Markalar</li>

@@ -26,6 +26,7 @@ export class RentThisCarComponent implements OnInit {
   rental:Rental;
   carDetailDto:CarDetailWithoutAnyImageDto;
   carDetailDtoDataLoaded=false
+ 
 
   createRentalAddForm(){
     this.rentalAddForm=this.formBuilder.group({
@@ -41,8 +42,10 @@ export class RentThisCarComponent implements OnInit {
     this.activatedRoute.params.subscribe(params=>{
       this.getCarDetails(params["carId"]);
     })
-    this.createRentalAddForm()
+    this.createRentalAddForm()    
   }
+
+  
 
   add(){
     if(this.rentalAddForm.valid){

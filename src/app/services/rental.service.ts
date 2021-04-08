@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { ListResponseModel } from '../models/listResponseModel';
 import { Rental } from '../models/rental';
 import { RentalDto } from '../models/rentalDto';
+import { ResponseModel } from '../models/responseModel';
 
 
 @Injectable({
@@ -28,5 +29,10 @@ export class RentalService {
     //   })
     // }
     return this.httpClient.post<Rental>(newPath, rental)
+  }
+
+  checkRentability(rental:Rental):Observable<ResponseModel>{
+    let newPath = this.apiUrl+"checkrentability"
+    return this.httpClient.get<ResponseModel>(newPath)
   }
 }

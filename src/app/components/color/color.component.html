@@ -1,6 +1,6 @@
 <h3>Renkler</h3>
 <div class="mb-3">  
-  <input type="text" [(ngModel)]="colorFilterText" class="form-control" id="filterText" placeholder="Renk ara...">
+  <input type="text" [(ngModel)]="colorFilterText" class="form-control" id="filterTextForColor" placeholder="Renk ara...">
 </div>
 <ul class="list-group">
   <li (click)="currentColorResetter(nullColor)" routerLink="/cars/" [class]="getAllColorsClass()">Tüm Renkler</li>
