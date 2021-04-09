@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { CarDetailWithoutAnyImageDto } from 'src/app/models/carDetailWithoutAnyImageDto';
 import { Rental } from 'src/app/models/rental';
+import { ResponseModel } from 'src/app/models/responseModel';
 import { CarService } from 'src/app/services/car.service';
 import { RentalService } from 'src/app/services/rental.service';
 
@@ -26,6 +27,7 @@ export class RentThisCarComponent implements OnInit {
   rental:Rental;
   carDetailDto:CarDetailWithoutAnyImageDto;
   carDetailDtoDataLoaded=false
+  rentabilityResponse:ResponseModel;
  
 
   createRentalAddForm(){
@@ -45,20 +47,30 @@ export class RentThisCarComponent implements OnInit {
     this.createRentalAddForm()    
   }
 
-  
+  checkRentability(){
+    this.add();
+    this.rentalService.checkRentability(this.rental).subscribe(response=>{
+      this.rentabilityResponse=response      
+      if(this.rentabilityResponse.success){
+        console.log(this.rentabilityResponse.message)
+      }
+    },responseError=>{
+      console.log(responseError.error.message)
+    })
+  }
 
   add(){
     if(this.rentalAddForm.valid){
       this.rental=Object.assign({}, this.rentalAddForm.value)
       this.rental.carId=this.carDetailDto.carId      
     }
-    console.log(this.rental.carId,this.rental.customerId,this.rental.rentDate,this.rental.returnDate)
-      this.rentalService.addRental(this.rental).subscribe(data=>{
-        this.toastrService.success(this.carDetailDto.brandName +" "+this.carDetailDto.carName,"Başarıyla Kiralandı")
-      },responseError=>{
-        this.toastrService.error(responseError.error.message)        
-      }
-      )
+    console.log("add metodundan"+this.rental.carId,this.rental.customerId,this.rental.rentDate,this.rental.returnDate)
+      // this.rentalService.addRental(this.rental).subscribe(data=>{
+      //   this.toastrService.success(this.carDetailDto.brandName +" "+this.carDetailDto.carName,"Başarıyla Kiralandı")
+      // },responseError=>{
+      //   this.toastrService.error(responseError.error.message)        
+      // }
+      // )
   }
   getCarDetails(carId:number){
     this.carService.getCarDetailDtoByCarId(carId).subscribe(response=>{

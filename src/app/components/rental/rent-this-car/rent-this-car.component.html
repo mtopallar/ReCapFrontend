@@ -1,7 +1,7 @@
 <!-- ----------------------Üst taraf test ----------------- -->
 <div *ngIf="carDetailDtoDataLoaded==true" class="container">
   <h4>{{ carDetailDto.brandName }} {{ carDetailDto.carName }} Kirala</h4>
-  <form [formGroup]="rentalAddForm" (ngSubmit)="add()">
+  <form [formGroup]="rentalAddForm" (ngSubmit)="checkRentability()">
     <div class="mb-3">
       <h6>Müşteri Id'si</h6>
       <input
@@ -22,14 +22,17 @@
         Müşteri Id Zorunludur.
       </div>
     </div>
-    <div class="mb-3">
+
+
+<div class="row">
+ <div class="mb-3 col-md-6">
       <h6>Kira Başlangıç Tarihi</h6>
       <input
         type="date"
         id="rentDate"
         name="rentDate"
         formControlName="rentDate"
-        class="form-control"
+        class="form-control, date"
       />
       <div
         class="alert alert-danger"
@@ -41,14 +44,14 @@
         Kira Başlangıç Tarihi Zorunludur.
       </div>
     </div>
-    <div class="mb-3">
+    <div class="mb-3 col-md-6">
       <h6>Kira Bitiş Tarihi</h6>
       <input
         type="date"
         id="returnDate"
         name="returnDate"
         formControlName="returnDate"
-        class="form-control"
+        class="form-control, date"
       />
       <div
         class="alert alert-danger"
@@ -60,6 +63,9 @@
         Kira Bitiş Tarihi Zorunludur.
       </div>
     </div>
+</div>
+
+   
     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
       <button
         type="submit"

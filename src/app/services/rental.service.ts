@@ -33,6 +33,6 @@ export class RentalService {
 
   checkRentability(rental:Rental):Observable<ResponseModel>{
     let newPath = this.apiUrl+"checkrentability"
-    return this.httpClient.get<ResponseModel>(newPath)
+    return this.httpClient.post<ResponseModel>(newPath,rental)
   }
 }
