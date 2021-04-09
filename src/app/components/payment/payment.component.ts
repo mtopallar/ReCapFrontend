@@ -5,6 +5,9 @@ import { ToastrService } from 'ngx-toastr';
 import { CreditCard } from 'src/app/models/creditCard';
 import { CreditCardType } from 'src/app/models/creditCardType';
 import { CreditCardTypeService } from 'src/app/services/credit-card-type.service';
+import { CreditCardService } from 'src/app/services/credit-card.service';
+import { PaymentService } from 'src/app/services/payment.service';
+import { RentalService } from 'src/app/services/rental.service';
 
 @Component({
   selector: 'app-payment',
@@ -17,26 +20,27 @@ export class PaymentComponent implements OnInit {
     private formBuilder:FormBuilder, 
     private activatedRoute:ActivatedRoute,
     private cardTypeService:CreditCardTypeService,
-    private toastrService:ToastrService) { }
+    private toastrService:ToastrService,
+    private creditCardService:CreditCardService,
+    private paymentService:PaymentService,
+    private rentalService:RentalService) { }
 
   creditCardForm:FormGroup;
   creditCard:CreditCard;
   creditCardTypes: CreditCardType[];
-  selectedCardType: number
   dataLoadedForCardTypes=false  
   years: number[]=[];
   months:number[]=[];
+  saveMyCard=false;
   
 
   ngOnInit(): void {
     this.getCardTypes();
-    this.createCreditCardForum();
-    this.getYears()
-    this.getMoths()
+    this.createCreditCardForm();    
   }
  
 
-  createCreditCardForum(){
+  createCreditCardForm(){    
     this.creditCardForm=this.formBuilder.group({
       customerId:["",Validators.required],      
       cardTypeId:["",Validators.required],
@@ -55,24 +59,25 @@ export class PaymentComponent implements OnInit {
       this.creditCardTypes=response.data
       this.dataLoadedForCardTypes=true;
     })
-  }
-
-  getYears(){
-    for(let i=2021; i<=2050; i++ ){
-      this.years.push(i)      
-    }    
-  }
-  getMoths(){
-    for(let i=1; i<13; i++ ){
-      this.months.push(i);
-    }    
-  }
+  }  
 
   sendCard(){
     console.log("metod çalıştı") 
-    this.creditCard=Object.assign({}, this.creditCardForm.value)      
-    console.log(this.creditCardForm.value)      
-    if(this.creditCardForm.valid){     
+    this.creditCard=Object.assign({}, this.creditCardForm.value)          
+    if(this.creditCardForm.valid){
+      this.paymentService.pay().subscribe(response=>{
+        if(response.success){
+          this.toastrService.success(response.message,"şimdi kira çalışcak")
+          //this.rentalService.addRental(rental)
+        }
+      },responseError=>{
+        this.toastrService.error(responseError.error.message)
+      })
+      if(this.saveMyCard){
+        
+        //this.creditCardService.addCreditCard(this.creditCard)
+      }  
+         
     }
   }
 }
