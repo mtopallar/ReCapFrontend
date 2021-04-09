@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ɵCompiler_compileModuleAndAllComponentsSync__POST_R3__ } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -22,8 +22,7 @@ export class PaymentComponent implements OnInit {
     private cardTypeService:CreditCardTypeService,
     private toastrService:ToastrService,
     private creditCardService:CreditCardService,
-    private paymentService:PaymentService,
-    private rentalService:RentalService) { }
+    private paymentService:PaymentService) { }
 
   creditCardForm:FormGroup;
   creditCard:CreditCard;
@@ -68,6 +67,7 @@ export class PaymentComponent implements OnInit {
       this.paymentService.pay().subscribe(response=>{
         if(response.success){
           this.toastrService.success(response.message,"şimdi kira çalışcak")
+          
           //this.rentalService.addRental(rental)
         }
       },responseError=>{
