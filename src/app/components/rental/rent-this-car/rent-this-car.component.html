@@ -23,7 +23,6 @@
       </div>
     </div>
 
-
 <div class="row">
  <div class="mb-3 col-md-6">
       <h6>Kira Başlangıç Tarihi</h6>
@@ -32,7 +31,7 @@
         id="rentDate"
         name="rentDate"
         formControlName="rentDate"
-        class="form-control, date"
+        class="form-control, date" 
       />
       <div
         class="alert alert-danger"
@@ -118,7 +117,7 @@
 <div class="container">
   <span  class="alert alert-success" *ngIf="isItRentable==true">{{rentabilitySuccessMessage}}</span>  
 <div *ngIf="isItRentable" class="row">
-  <div class="col-md-6">
+  <div class="col-md-10">
   <h4>Kredi kartı bilgileri</h4>
   <form [formGroup]="creditCardForm" (ngSubmit)="sendCard()">
     <div class="mb-3">
@@ -230,7 +229,7 @@
         creditCardForm.get('expirationMonth').hasError('required') && creditCardForm.get('expirationMonth').dirty || creditCardForm.get('expirationMonth').hasError('min')  || creditCardForm.get('expirationMonth').hasError('max')
       "
     >
-      Yıl Bilgisi Hatalı.
+      Ay Bilgisi Hatalı.
     </div>
   
     <!-- ////////////////////////////////////////////////// -->
@@ -282,6 +281,7 @@
     </div>
   <!-- ////////////////////////////////////////////////// -->
     <div class="mb-3">
+      <h6>Kart Tipi</h6>
       <select formControlName="cardTypeId" class="form-select" aria-label="cardType">
         <option *ngFor="let cardType of creditCardTypes" [ngValue]="cardType.id">
           {{ cardType.typeName }}
@@ -327,8 +327,8 @@
       </div>
   
   </form>
-  </div>
-  <div *ngIf="carDetailDtoDataLoaded" class="col-md-6">
+  <!-- </div> -->
+  <!-- <div *ngIf="carDetailDtoDataLoaded" class="col-md-6">
       <h4>Kira özeti</h4>      
   <table class="table table-striped">
     <thead>
@@ -361,9 +361,9 @@
       <tr>
         <th scope="row">Kiralama Ücreti</th>
         <td>{{ carDetailDto.dailyPrice }}</td>
-      </tr>
+      </tr>      
     </tbody>
   </table>
-  </div>
+  </div> -->
   </div>
 </div>

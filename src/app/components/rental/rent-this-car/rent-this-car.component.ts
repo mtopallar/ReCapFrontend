@@ -36,6 +36,7 @@ export class RentThisCarComponent implements OnInit {
   rentabilityErrorMessage: string;
   rentabilitySuccessMessage:string
   isItRentable: boolean;
+  totalRentDay:any
 
   creditCardForm: FormGroup;
   creditCard: CreditCard;
@@ -66,7 +67,7 @@ export class RentThisCarComponent implements OnInit {
 
   checkRentability() {
     this.isItRentable = null;
-    this.add();
+    this.add();    
     this.isItRentable = undefined;
     this.rentalService.checkRentability(this.rental).subscribe(
       (response) => {
@@ -74,7 +75,7 @@ export class RentThisCarComponent implements OnInit {
         this.rentabilityResponse = response;
         if (this.rentabilityResponse.success) {
           console.log(this.rentabilityResponse.message);
-          this.rentabilitySuccessMessage=this.rentabilityResponse.message+" Lütfen işleme devam edebilmek için ödeme bilgilerinizi giriniz."
+          this.rentabilitySuccessMessage=this.rentabilityResponse.message
         }
       },
       (responseError) => {
@@ -85,6 +86,7 @@ export class RentThisCarComponent implements OnInit {
       }
     );
   }
+  
 
   add() {
     if (this.rentalAddForm.valid) {
