@@ -4,6 +4,6 @@
 </div>
 <ul class="list-group">
   <li (click)="currentColorResetter(nullColor)" routerLink="/cars/" [class]="getAllColorsClass()">Tüm Renkler</li>
-  <li (click)="setCurrentColor(color)" routerLink="/cars/color/{{color.id}}" *ngFor="let color of colors | colorFilterPipe:colorFilterText" [class]="getCurrentColorClass(color)"> {{color.id}} - {{color.name}}</li>
+  <li (click)="setCurrentColor(color)" routerLink="/cars/color/{{color.id}}" *ngFor="let color of colors | colorFilterPipe:colorFilterText" [class]="getCurrentColorClass(color)">{{color.name}}</li>
 </ul>
 <h6 *ngIf="currentColor != null">{{currentColor.name}} seçtiniz.</h6>

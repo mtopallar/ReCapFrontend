@@ -25,13 +25,13 @@ export class CreditCardService {
     let newPath= this.apiUrl+"getcustomerselectedcardbycustomerid"+customerId
     return this.httpClient.get<SingleResponseModel<CreditCardDto>>(newPath);
   }
-  addCreditCard(creditCard:CreditCard):Observable<CreditCard>{
+  addCreditCard(creditCard:CreditCard):Observable<ResponseModel>{
     let newPath= this.apiUrl+"add";
-    return this.httpClient.post<CreditCard>(newPath,creditCard);
+    return this.httpClient.post<ResponseModel>(newPath,creditCard);
   }
 
-  deleteCreditCard(creditCard:CreditCard):Observable<CreditCard>{
+  deleteCreditCard(creditCard:CreditCard):Observable<ResponseModel>{
     let newPath = this.apiUrl+"delete";
-    return this.httpClient.post<CreditCard>(newPath,creditCard);
+    return this.httpClient.post<ResponseModel>(newPath,creditCard);
   }
 }

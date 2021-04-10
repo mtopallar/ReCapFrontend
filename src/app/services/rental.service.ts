@@ -20,7 +20,7 @@ export class RentalService {
     return this.httpClient.get<ListResponseModel<RentalDto>>(newPath)
   }
 
-  addRental(rental:Rental):Observable<Rental>{
+  addRental(rental:Rental):Observable<ResponseModel>{
     let newPath = this.apiUrl+"add"
     // const httpOptions={
     //   header: new HttpHeaders({
@@ -28,7 +28,7 @@ export class RentalService {
     //     'Authorization':'Token'
     //   })
     // }
-    return this.httpClient.post<Rental>(newPath, rental)
+    return this.httpClient.post<ResponseModel>(newPath, rental)
   }
 
   checkRentability(rental:Rental):Observable<ResponseModel>{

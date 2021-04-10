@@ -4,7 +4,7 @@
 </div>
 <ul class="list-group">
   <li (click)="currentBrandResetter(nullBrand)" routerLink="/cars/" [class]="getAllBrandsClass()">Tüm Markalar</li>
-  <li (click)="setCurrentBrand(brand)" routerLink="/cars/brand/{{brand.id}}"  *ngFor="let brand of brands | brandFilterPipe:brandFilterText" [class]="getCurrentBrandClass(brand)">{{brand.id}} - {{ brand.name}}</li>
+  <li (click)="setCurrentBrand(brand)" routerLink="/cars/brand/{{brand.id}}"  *ngFor="let brand of brands | brandFilterPipe:brandFilterText" [class]="getCurrentBrandClass(brand)">{{ brand.name}}</li>
 </ul>
 <h6 *ngIf="currentBrand!=null">{{currentBrand.name}} seçtiniz.</h6>
 

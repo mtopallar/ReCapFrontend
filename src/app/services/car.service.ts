@@ -1,10 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Car } from '../models/car';
 import { CarDetailWithMainImageDto } from '../models/carDetailWithMainImageDto';
 import { CarDetailWithoutAnyImageDto } from '../models/carDetailWithoutAnyImageDto';
 import { CarImage } from '../models/carImage';
 import { ListResponseModel } from '../models/listResponseModel';
+import { ResponseModel } from '../models/responseModel';
 import { SingleResponseModel } from '../models/singleResponseModel';
 
 @Injectable({
@@ -43,9 +45,14 @@ export class CarService {
     return this.httpClient.get<ListResponseModel<CarDetailWithMainImageDto>>(newPath);
   }
 
-  //Test
-  getImageByImageIdTest(id:number):Observable<SingleResponseModel<CarImage>>{
-    let path= this.apiUrl+"carimages/getimagebyid?id="+id
-    return this.httpClient.get<SingleResponseModel<CarImage>>(path);
+  addCar(car:Car):Observable<ResponseModel>{
+    let newPath = this.apiUrl+"/cars/add"
+    return this.httpClient.post<ResponseModel>(newPath,car);
   }
+
+  // //Test
+  // getImageByImageIdTest(id:number):Observable<SingleResponseModel<CarImage>>{
+  //   let path= this.apiUrl+"carimages/getimagebyid?id="+id
+  //   return this.httpClient.get<SingleResponseModel<CarImage>>(path);
+  // }
 }
