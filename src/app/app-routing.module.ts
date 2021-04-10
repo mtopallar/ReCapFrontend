@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { BrandAddComponent } from './components/brand-add/brand-add.component';
 import { BrandAdminComponent } from './components/brand-admin/brand-admin.component';
 import { BrandComponent } from './components/brand/brand.component';
 import { CarAddComponent } from './components/car-add/car-add.component';
+import { CarAdminComponent } from './components/car-admin/car-admin.component';
 import { CarDetailWithImageComponent } from './components/car-detail-with-image/car-detail-with-image.component';
 import { CarComponent } from './components/car/car.component';
 import { ColorAddComponent } from './components/color-add/color-add.component';
@@ -18,11 +18,10 @@ const routes: Routes = [
   {path:"cars/cardetails/:carId",component:CarDetailWithImageComponent},
   {path:"rentals",component:RentalComponent},
   {path:"rentcar/carId/:carId",component:RentThisCarComponent},
-  {path:"cars/add",component:CarAddComponent},
+  {path:"cars/add",component:CarAddComponent},  
   {path:"colors/add",component:ColorAddComponent},
-  {path:"brands/add",component:BrandAddComponent},
-  {path:"brands",component:BrandAdminComponent},
-  {path:"brands/update/:brandId",component:BrandAdminComponent}
+  {path:"admin/cars",component:CarAdminComponent},
+  {path:"admin/brands",component:BrandAdminComponent},
 ];
 
 @NgModule({

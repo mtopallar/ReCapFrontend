@@ -1,0 +1,127 @@
+<div class="container">
+<div class="col-md-5">
+<div class="mb-3">
+<h5>İşlem tipi</h5>
+<div class=" d-grid gap-2 d-md-flex justify-content-start">
+<input (click)="selectionAdd(true)" type="radio" class="btn-check" name="options-outlined" id="success-outlined" autocomplete="off" checked>
+<label class="btn btn-outline-success" for="success-outlined">Araç Ekle</label>
+
+<input (click)="selectionEdit(true)" type="radio" class="btn-check" name="options-outlined" id="danger-outlined" autocomplete="off">
+<label class="btn btn-outline-danger" for="danger-outlined">Güncelle / Sil</label>
+</div>
+</div>
+</div>
+</div>
+
+<div *ngIf="selectionforAdd && selectionForEdit==false">
+    <div class="container">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header"><h5 class="title">Araç Ekle</h5></div>
+                <div class="card-body">
+                <form [formGroup]="carAddForm">
+                    <label for="brandId">Marka</label>
+                    <div class="form-group mb-3">
+                        <input type="number" id="brandId" formControlName="brandId" class="form-control" placeholder="brandId">
+                    </div>
+                    <label for="colorId">Renk</label>
+                    <div class="form-group mb-3">
+                        <input type="number" id="colorId" formControlName="colorId" class="form-control" placeholder="colorId">
+                    </div>
+                    <label for="carName">Model</label>
+                    <div class="form-group mb-3">
+                        <input type="text" id="carName" formControlName="carName" class="form-control" placeholder="Model">
+                    </div>
+                    <label for="modelYear">Model Yılı</label>
+                    <div class="form-group mb-3">
+                        <input type="number" id="modelYear" formControlName="modelYear" class="form-control" placeholder=" Yılı">
+                    </div>
+                    <label for="dailyPrice">Günlük Kira Bedeli ₺</label>
+                    <div class="form-group mb-3">
+                        <input type="number" id="dailyPrice" formControlName="dailyPrice" class="form-control" placeholder="Günlük Kira Ücreti ₺">
+                    </div>
+                    <label for="description">Açıklama</label>
+                    <div class="form-group mb-3">
+                        <input type="text" id="description" formControlName="description" class="form-control" placeholder="Açıklama">
+                    </div>
+                    
+                </form>
+                </div>
+                <div class="card-footer">
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <button class="btn btn-fill btn-success" (click)="addCar()">Ekle</button>
+                    </div>                
+                </div>
+            </div>
+        </div>
+    </div>    
+</div>
+
+  <div *ngIf="selectionforAdd==false && selectionForEdit">  
+  <div *ngIf="selectedCarDataLoaded==false" class="row container"> 
+   <div *ngFor="let car of allCars" class="card " style="padding:auto; padding-top: 10px; width: 18rem;">
+      <img
+        src= "{{imageUrl}}{{car.mainImage.imagePath}}"
+        class="card-img-top" style="height: 7rem;"
+      />
+      <div class="card-body">
+        <h5 class="card-title">{{ car.carName }}</h5>
+        <p class="card-text" style="height: 3rem">{{ car.description }}</p>
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item"><strong>{{ car.brandName }}</strong></li>
+        <li class="list-group-item">{{ car.colorName }}</li>
+        <li class="list-group-item">Günlük {{car.dailyPrice}} ₺</li>
+      </ul>
+      <div class="card-body">
+        <div class="d-grid gap-2 d-md-flex justify-content-between">
+          <button class="btn btn-success" (click)="getSelectedCar(car.carId)" type="button">Güncelle</button>
+          <button class="btn btn-danger" type="button">Sil</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="selectedCarDataLoaded==true" class="container">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header"><h5 class="title">Aracı Güncelle</h5></div>
+            <div class="card-body">
+            <form [formGroup]="carUpdateForm">
+                <label for="brandId">Mevcut Marka: {{selectedCar.brandId}}</label>
+                <div class="form-group mb-3">
+                    <input type="number" id="brandId" formControlName="brandId" class="form-control" placeholder="Yeni markayı yazınız.">
+                </div>
+                <label for="colorId">Mevcut Renk: {{selectedCar.colorId}}</label>
+                <div class="form-group mb-3">
+                    <input type="number" id="colorId" formControlName="colorId" class="form-control" placeholder="Yeni rengi yazınız.">
+                </div>
+                <label for="carName">Mevcut Model: {{selectedCar.carName}}</label>
+                <div class="form-group mb-3">
+                    <input type="text" id="carName" formControlName="carName" class="form-control" placeholder="Yeni modeli yazınız.">
+                </div>
+                <label for="modelYear">Mevcut Model Yılı: {{selectedCar.modelYear}}</label>
+                <div class="form-group mb-3">
+                    <input type="number" id="modelYear" formControlName="modelYear" class="form-control" placeholder="Güncellemek istediğiniz tarihi yazınız.">
+                </div>
+                <label for="dailyPrice">Mevcut Günlük Kira Bedeli {{selectedCar.dailyPrice}} ₺</label>
+                <div class="form-group mb-3">
+                    <input type="number" id="dailyPrice" formControlName="dailyPrice" class="form-control" placeholder="Yeni günlü kira değerini yazınız.">
+                </div>
+                <label for="description">Mevcut Açıklama: {{selectedCar.description}}</label>
+                <div class="form-group mb-3">
+                    <input type="text" id="description" formControlName="description" class="form-control" placeholder="Yeni açıklamayı yazınız">
+                </div>
+                
+            </form>
+            </div>
+            <div class="card-footer">
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <button class="btn btn-fill btn-success" (click)="updateCar(selectedCar.id)">Güncelle</button>
+            <button class="btn btn-fill btn-success" (click)="selectedCarResetter(false)">Geri</button>
+                </div>                
+            </div>
+        </div>
+    </div>
+</div>
+</div>

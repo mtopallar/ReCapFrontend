@@ -16,9 +16,20 @@ export class CarService {
   apiUrl = 'https://localhost:44398/api/';
   constructor(private httpClient: HttpClient) {}
 
-  getCars(): Observable<ListResponseModel<CarDetailWithMainImageDto>> {
+  getCarsDto(): Observable<ListResponseModel<CarDetailWithMainImageDto>> {
     let newPath = this.apiUrl + 'cars/getcarsdetails';
     return this.httpClient.get<ListResponseModel<CarDetailWithMainImageDto>>(newPath);
+  }
+
+  //Gerekmeyebilir.
+  getCars():Observable<ListResponseModel<Car>>{
+    let newPath=this.apiUrl+"cars/getall"
+    return this.httpClient.get<ListResponseModel<Car>>(newPath)
+  }
+
+  getCarByCarId(carId:number):Observable<SingleResponseModel<Car>>{
+    let newPath = this.apiUrl+"cars/getbyid?id="+carId
+    return this.httpClient.get<SingleResponseModel<Car>>(newPath)
   }
 
   getCarDetailDtoByCarId(carId:number):Observable<SingleResponseModel<CarDetailWithoutAnyImageDto>>{
@@ -48,6 +59,11 @@ export class CarService {
   addCar(car:Car):Observable<ResponseModel>{
     let newPath = this.apiUrl+"cars/add"
     return this.httpClient.post<ResponseModel>(newPath,car);
+  }
+
+  updateCar(car:Car):Observable<ResponseModel>{
+    let newPath=this.apiUrl+"cars/update";
+    return this.httpClient.post<ResponseModel>(newPath, car)
   }
 
   // //Test
