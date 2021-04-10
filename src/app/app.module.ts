@@ -22,6 +22,7 @@ import { RentThisCarComponent } from './components/rental/rent-this-car/rent-thi
 import { ColorAddComponent } from './components/color-add/color-add.component';
 import { CarAddComponent } from './components/car-add/car-add.component';
 import { BrandAddComponent } from './components/brand-add/brand-add.component';
+import { BrandAdminComponent } from './components/brand-admin/brand-admin.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { BrandAddComponent } from './components/brand-add/brand-add.component';
     RentThisCarComponent,
     ColorAddComponent,
     CarAddComponent,
-    BrandAddComponent    
+    BrandAddComponent,
+    BrandAdminComponent    
   ],
   imports: [
     BrowserModule,

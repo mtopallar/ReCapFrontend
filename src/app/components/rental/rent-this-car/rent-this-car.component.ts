@@ -72,7 +72,7 @@ export class RentThisCarComponent implements OnInit {
     this.rentalService.checkRentability(this.rental).subscribe(
       (response) => {
         this.isItRentable = true;
-        //this.rentabilityResponse = response;
+        this.rentabilityResponse = response;
         if (this.rentabilityResponse.success) {
           console.log(this.rentabilityResponse.message);
           this.rentabilitySuccessMessage=this.rentabilityResponse.message
