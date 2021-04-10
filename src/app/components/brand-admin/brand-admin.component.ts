@@ -23,12 +23,24 @@ export class BrandAdminComponent implements OnInit {
   selectedBrand: Brand;
   allBrandsDataLoaded=false
   selectedBrandDataLoaded=false
+  selectionForAdd:boolean =true
+  selectionForEdit:boolean =false
   brandUpdateForm: FormGroup;
   brandAddForm: FormGroup;
 
   ngOnInit(): void {
     this.getAllBrands();
     this.createAddBrandForm()    
+  }
+
+  selectionAdd(selection:boolean){
+    this.selectionForAdd=selection;
+    this.selectionForEdit=false;
+    this.resetSelectedBrand(false)    
+  }
+  selectionEdit(selection:boolean){
+    this.selectionForAdd=false;
+    this.selectionForEdit=selection    
   }
 
   createBrandUpdateForm() {    
@@ -47,6 +59,7 @@ if (this.brandAddForm.valid){
   let brandModel = Object.assign({},this.brandAddForm.value)
   this.brandService.addBrand(brandModel).subscribe(response=>{
     this.toastrService.success(response.message, 'Başarılı');
+    this.brandAddForm.reset();
   },
   (responseError) => {
     if (responseError.error.ValidationErrors.length > 0) {
@@ -71,6 +84,10 @@ else {
 }
 }
 
+  resetSelectedBrand(newValue:boolean){
+    this.selectedBrandDataLoaded=newValue
+  }
+
   getAllBrands(){
     this.brandService.getBrands().subscribe(response=>{
       this.allBrands=response.data
@@ -93,6 +110,7 @@ else {
       brandModel.id=this.selectedBrand.id      
       this.brandService.updateBrand(brandModel).subscribe(response=>{
         this.toastrService.success(response.message, 'Başarılı');
+        this.brandAddForm.reset();
       },
       (responseError) => {
         if (responseError.error.ValidationErrors.length > 0) {
@@ -125,6 +143,8 @@ else {
     },responseError=>{
       this.toastrService.error(responseError.message)
     })
+     },responseError=>{
+       this.toastrService.error("Belirtilen markaya ulaşılamadı.","Hata")
      })    
    }
 
