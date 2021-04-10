@@ -20,7 +20,6 @@ import { CarNameFilterPipePipe } from './pipes/car-name-filter-pipe.pipe';
 import{ToastrModule} from "ngx-toastr";
 import { RentThisCarComponent } from './components/rental/rent-this-car/rent-this-car.component';
 import { ColorAddComponent } from './components/color-add/color-add.component';
-import { CarAddComponent } from './components/car-add/car-add.component';
 import { BrandAdminComponent } from './components/brand-admin/brand-admin.component';
 import { CarAdminComponent } from './components/car-admin/car-admin.component';
 
@@ -39,7 +38,6 @@ import { CarAdminComponent } from './components/car-admin/car-admin.component';
     CarNameFilterPipePipe,
     RentThisCarComponent,
     ColorAddComponent,
-    CarAddComponent,
     BrandAdminComponent,
     CarAdminComponent    
   ],

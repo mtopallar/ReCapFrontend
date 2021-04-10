@@ -32,12 +32,11 @@ export class CarAdminComponent implements OnInit {
   selectionAdd(selection:boolean){
     this.selectionforAdd=selection;
     this.selectionForEdit=false;
-    console.log(this.selectionforAdd, this.selectionForEdit)
+    this.selectedCarResetter(false)    
   }
   selectionEdit(selection:boolean){
     this.selectionforAdd=false;
-    this.selectionForEdit=selection
-    console.log(this.selectionforAdd, this.selectionForEdit)
+    this.selectionForEdit=selection    
   }
 
   ngOnInit(): void {
@@ -68,12 +67,29 @@ export class CarAdminComponent implements OnInit {
     });
   }
 
+  deleteCar(id:number){
+    let carToDelete:Car;
+    this.carService.getCarByCarId(id).subscribe(response=>{
+      carToDelete=response.data
+       this.carService.deleteCar(carToDelete).subscribe(response=>{
+      this.toastrService.success(response.message,"Silindi")
+    },responseError=>{
+      this.toastrService.error(responseError.message)
+    })
+    },responseError=>{
+      this.toastrService.error("Belirtilen araca ulaşılamadı","Hata")
+    })   
+   
+    }
+  
+
   addCar() {
     if (this.carAddForm.valid) {
       let carModel = Object.assign({}, this.carAddForm.value);
       this.carService.addCar(carModel).subscribe(
         (response) => {
           this.toastrService.success(response.message, 'Başarılı');
+          this.carUpdateForm.reset()
         },
         (responseError) => {
           if (responseError.error.ValidationErrors.length > 0) {
@@ -88,7 +104,7 @@ export class CarAdminComponent implements OnInit {
               );
             }
           }
-        }
+        }         
       );
     } else {
       this.toastrService.error(

@@ -66,6 +66,11 @@ export class CarService {
     return this.httpClient.post<ResponseModel>(newPath, car)
   }
 
+  deleteCar(car:Car):Observable<ResponseModel>{
+    let newPath = this.apiUrl+"cars/delete"
+    return this.httpClient.post<ResponseModel>(newPath,car)
+  }
+
   // //Test
   // getImageByImageIdTest(id:number):Observable<SingleResponseModel<CarImage>>{
   //   let path= this.apiUrl+"carimages/getimagebyid?id="+id
