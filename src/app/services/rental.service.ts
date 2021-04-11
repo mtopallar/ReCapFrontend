@@ -21,13 +21,7 @@ export class RentalService {
   }
 
   addRental(rental:Rental):Observable<ResponseModel>{
-    let newPath = this.apiUrl+"add"
-    // const httpOptions={
-    //   header: new HttpHeaders({
-    //     'Content-Type':'application/json',
-    //     'Authorization':'Token'
-    //   })
-    // }
+    let newPath = this.apiUrl+"add"    
     return this.httpClient.post<ResponseModel>(newPath, rental)
   }
 

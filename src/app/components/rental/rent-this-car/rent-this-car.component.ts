@@ -27,18 +27,17 @@ export class RentThisCarComponent implements OnInit {
     private toastrService: ToastrService,
     private cardTypeService: CreditCardTypeService,
     private paymentService: PaymentService,
-    private findeksService:FindexService
+    private findeksService: FindexService
   ) {}
 
   rentalAddForm: FormGroup;
   rental: Rental;
   carDetailDto: CarDetailWithoutAnyImageDto;
-  carDetailDtoDataLoaded = false;
-  rentabilityResponse: ResponseModel;
+  carDetailDtoDataLoaded = false;  
   rentabilityErrorMessage: string;
-  rentabilitySuccessMessage:string
+  rentabilitySuccessMessage: string;
   isItRentable: boolean;
-  totalRentDay:any
+  totalRentDay: any;
 
   creditCardForm: FormGroup;
   creditCard: CreditCard;
@@ -47,11 +46,13 @@ export class RentThisCarComponent implements OnInit {
   years: number[] = [];
   months: number[] = [];
   saveMyCard = false;
-  findeksPointEnough:boolean
-  findeksResponseModel:ResponseModel
+  
+  findeksEnoughMessage:string
+  findeksNotEnoughMessage:string
+  enoughFindexPoint:boolean
 
   createRentalAddForm() {
-    this.rentalAddForm = this.formBuilder.group({      
+    this.rentalAddForm = this.formBuilder.group({
       customerId: ['', Validators.required],
       rentDate: ['', Validators.required],
       returnDate: ['', Validators.required],
@@ -67,53 +68,50 @@ export class RentThisCarComponent implements OnInit {
     this.createCreditCardForm();
   }
 
-  checkFindeksPoint(customerId:number){
-    this.findeksService.getFindexByCustomerId(customerId).subscribe(response=>{
-      this.findeksPointEnough=true;
-      this.findeksResponseModel.message=response.message
-      this.toastrService.success(response.message,"Başarılı")      
-    },responseError=>{
-      this.findeksPointEnough=false;
-      this.toastrService.error(responseError.error,"Hata")
-    })
+  checkFindeksPoint() {
+      
+    this.findeksService.getFindexByCustomerId(this.rental.customerId).subscribe(
+      (response) => {
+        if(response.data.score<this.carDetailDto.minFindeksScore){
+          this.findeksNotEnoughMessage="Bu aracı kiralayabilmek için yeterli findeks puanınız yok"
+          this.toastrService.error(this.findeksNotEnoughMessage,"Hata")          
+          this.enoughFindexPoint=false
+        }else{ 
+          this.findeksEnoughMessage="Bu aracı kiralayabilmek için Findeks puanınız yeterli"
+          this.enoughFindexPoint=true      
+          this.toastrService.success(this.findeksEnoughMessage)           
+        }        
+      },
+      (responseError) => {
+             
+        this.toastrService.error(responseError.error, 'Hata');
+      }
+    );
   }
 
   checkRentability() {
     this.isItRentable = null;
-    this.add();
-    this.checkFindeksPoint(this.rental.customerId)    
     this.isItRentable = undefined;
-    this.rentalService.checkRentability(this.rental).subscribe(
-      (response) => {
-        this.isItRentable = true;
-        this.rentabilityResponse = response;
-        if (this.rentabilityResponse.success) {
-          console.log(this.rentabilityResponse.message);
-          this.rentabilitySuccessMessage=this.rentabilityResponse.message
-        }
-      },
-      (responseError) => {
-        this.rentabilityResponse = responseError;
-        this.rentabilityErrorMessage = responseError.error.message;
-        this.isItRentable = false;
-        //console.log(responseError.error.message)
-      }
-    );
-  }
-  
-
-  add() {
     if (this.rentalAddForm.valid) {
-      this.rental = Object.assign({}, this.rentalAddForm.value);
-      this.rental.carId = this.carDetailDto.carId;
-    }    
-    this.rentalService.addRental(this.rental).subscribe(data=>{
-      this.toastrService.success(this.carDetailDto.brandName +" "+this.carDetailDto.carName,"Başarıyla Kiralandı")
-    },responseError=>{
-      this.toastrService.error(responseError.error.message)
+      let rentalModel: Rental = Object.assign({}, this.rentalAddForm.value);
+      rentalModel.carId = this.carDetailDto.carId;
+      this.rental = rentalModel
+      this.checkFindeksPoint();
+      this.rentalService.checkRentability(rentalModel).subscribe(
+        (response) => {
+          this.isItRentable = true;          
+          if (response.success) {            
+            this.rentabilitySuccessMessage = response.message;
+          }
+        },
+        (responseError) => {
+          this.rentabilityErrorMessage = responseError.error.message;
+          this.isItRentable = false;
+        }
+      );
     }
-    )
   }
+
   getCarDetails(carId: number) {
     this.carService.getCarDetailDtoByCarId(carId).subscribe((response) => {
       this.carDetailDto = response.data;

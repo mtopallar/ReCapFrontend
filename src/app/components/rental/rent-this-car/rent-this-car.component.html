@@ -76,7 +76,7 @@
       <button *ngIf="carDetailDtoDataLoaded==true" class="btn btn-success" type="button" routerLink="/cars/cardetails/{{carDetailDto.carId}}">Araç Detayları</button>
     </div>
   </form>
-  <span  class="alert alert-danger" *ngIf="isItRentable==false">{{rentabilityErrorMessage}}</span>  
+  <span  class="alert alert-danger" *ngIf="isItRentable==false">{{rentabilityErrorMessage}}</span> 
   <h4 *ngIf="isItRentable==false || isItRentable==null">Araç Bilgileri</h4>
   <table *ngIf="isItRentable==false || isItRentable==null &&carDetailDtoDataLoaded==true" class="table table-striped">
     <thead>
@@ -108,7 +108,11 @@
       </tr>
       <tr>
         <th scope="row">Kiralama Ücreti</th>
-        <td>{{ carDetailDto.dailyPrice }}</td>
+        <td>{{ carDetailDto.dailyPrice }}₺</td>
+      </tr>
+      <tr>
+        <th scope="row">Minimum Findeks Puanı</th>
+        <td>{{ carDetailDto.minFindeksScore }}</td>
       </tr>
     </tbody>
   </table>
@@ -116,7 +120,7 @@
 <!-- -------------------------ikinci html--------------------------- -->
 <div class="container">
   <span  class="alert alert-success" *ngIf="isItRentable==true">{{rentabilitySuccessMessage}}</span>  
-<div *ngIf="isItRentable" class="row">
+<div *ngIf="isItRentable && enoughFindexPoint" class="row">
   <div class="col-md-10">
   <h4>Kredi kartı bilgileri</h4>
   <form [formGroup]="creditCardForm" (ngSubmit)="sendCard()">

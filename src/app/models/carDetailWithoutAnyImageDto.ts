@@ -8,4 +8,5 @@ export interface CarDetailWithoutAnyImageDto{
     dailyPrice:number,
     description:string,
     modelYear:number,
+    minFindeksScore:number
 }
