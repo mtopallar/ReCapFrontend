@@ -60,7 +60,8 @@ if (this.colorAddForm.valid){
     this.colorAddForm.reset();
   },
   (responseError) => {
-    if (responseError.error.ValidationErrors.length > 0) {
+    if(responseError.error.ValidationErrors){
+      if (responseError.error.ValidationErrors.length > 0) {
       for (
         let i = 0;
         i < responseError.error.ValidationErrors.length;
@@ -72,6 +73,8 @@ if (this.colorAddForm.valid){
         );
       }
     }
+    }    
+    else(this.toastrService.error("Bu işlem için yetkiniz yok.")) //b.e. de refactor edilecek.
   })
 }
 else {

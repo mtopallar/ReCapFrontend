@@ -5,8 +5,12 @@ import { CarAdminComponent } from './components/car-admin/car-admin.component';
 import { CarDetailWithImageComponent } from './components/car-detail-with-image/car-detail-with-image.component';
 import { CarComponent } from './components/car/car.component';
 import { ColorAdminComponent } from './components/color-admin/color-admin.component';
+import { LoginComponent } from './components/login/login.component';
+import { RegisterComponent } from './components/register/register.component';
 import { RentThisCarComponent } from './components/rental/rent-this-car/rent-this-car.component';
 import { RentalComponent } from './components/rental/rental.component';
+import { UserComponent } from './components/user/user.component';
+import { LoginGuard } from './guards/login.guard';
 
 const routes: Routes = [
   {path:"",pathMatch:"full",component:CarComponent},
@@ -16,9 +20,12 @@ const routes: Routes = [
   {path:"cars/cardetails/:carId",component:CarDetailWithImageComponent},
   {path:"rentals",component:RentalComponent},
   {path:"rentcar/carId/:carId",component:RentThisCarComponent},
-  {path:"admin/cars",component:CarAdminComponent},
-  {path:"admin/brands",component:BrandAdminComponent},
-  {path:"admin/colors",component:ColorAdminComponent}
+  {path:"admin/cars",component:CarAdminComponent, canActivate:[LoginGuard]},
+  {path:"admin/brands",component:BrandAdminComponent,canActivate:[LoginGuard]},
+  {path:"admin/colors",component:ColorAdminComponent,canActivate:[LoginGuard]},
+  {path:"user",component:UserComponent,canActivate:[LoginGuard]},
+  {path:"login",component:LoginComponent},
+  {path:"register",component:RegisterComponent}
 ];
 
 @NgModule({

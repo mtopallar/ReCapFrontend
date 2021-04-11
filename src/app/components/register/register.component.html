@@ -1,0 +1,65 @@
+<body class="text-center">
+    <main class="form-signin">
+      <form [formGroup]="registerForm">
+        <!-- <img class="mb-4" src="/docs/5.0/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57"> -->
+        <h1 class="h3 mb-3 fw-normal">Yeni Kayıt Oluştur</h1>
+  
+        <div class="form-floating">
+          <input
+          formControlName="firstName"
+            type="text"
+            class="form-control"
+            id="firstName"
+            placeholder="Adınızı yazınız."
+          />
+          <label for="firstName">Ad</label>
+        </div>
+        <div class="form-floating">
+          <input
+          formControlName="lastName"
+            type="text"
+            class="form-control"
+            id="lastName"
+            placeholder="Soyadınızı yazınız."
+          />
+          <label for="lastName">Soyad</label>
+        </div>
+        <!-- ----------------------------------------------- -->
+        <div class="form-floating">
+            <input
+            formControlName="email"
+              type="email"
+              class="form-control"
+              id="email"
+              placeholder="Email adresinizi yazınız."
+            />
+            <label for="email">E-mail</label>
+          </div>
+          <div class="form-floating">
+            <input
+            formControlName="password"
+              type="password"
+              class="form-control"
+              id="password"
+              placeholder="Password"
+            />
+            <label for="floatingPassword">Parola</label>
+          </div>
+          <!-- ---------------------------------------------- -->
+  
+        <!-- <div class="checkbox mb-3">
+            <label>
+              <input type="checkbox" value="remember-me"> Remember me
+            </label>
+          </div> -->
+        <button
+          class="w-100 btn btn-lg btn-primary"
+          (click)="register()"        
+        >
+          Kaydol
+        </button>
+        <p class="mt-5 mb-3 text-muted">&copy; 2017–2021</p>
+      </form>
+    </main>
+  </body>
+  

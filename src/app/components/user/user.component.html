@@ -1,0 +1,31 @@
+<div>
+    <div class="container">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header"><h5 class="title">Kullanıcı Bilgilerini Düzenle</h5></div>
+                <div class="card-body">
+                <form [formGroup]="updateUserForm">
+                    <label for="firstName">İsim</label>
+                    <div class="form-group mb-3">
+                        <input type="text" id="firstName" formControlName="firstName" class="form-control" placeholder="Ad">
+                    </div>
+                    <label for="colorId">Soyad</label>
+                    <div class="form-group mb-3">
+                        <input type="text" id="lastName" formControlName="lastName" class="form-control" placeholder="Soyad">
+                    </div>
+                    <label for="email">Email</label>
+                    <div class="form-group mb-3">
+                        <input type="email" id="email" formControlName="email" class="form-control" placeholder="Email">
+                    </div>                   
+                    
+                </form>
+                </div>
+                <div class="card-footer">
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <button class="btn btn-fill btn-success" (click)="update()">Güncelle</button>                
+                    </div>                
+                </div>
+            </div>
+        </div>
+    </div>    
+</div>

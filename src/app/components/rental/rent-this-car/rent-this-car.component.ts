@@ -9,6 +9,7 @@ import { Rental } from 'src/app/models/rental';
 import { ResponseModel } from 'src/app/models/responseModel';
 import { CarService } from 'src/app/services/car.service';
 import { CreditCardTypeService } from 'src/app/services/credit-card-type.service';
+import { FindexService } from 'src/app/services/findex.service';
 import { PaymentService } from 'src/app/services/payment.service';
 import { RentalService } from 'src/app/services/rental.service';
 
@@ -25,7 +26,8 @@ export class RentThisCarComponent implements OnInit {
     private rentalService: RentalService,
     private toastrService: ToastrService,
     private cardTypeService: CreditCardTypeService,
-    private paymentService: PaymentService
+    private paymentService: PaymentService,
+    private findeksService:FindexService
   ) {}
 
   rentalAddForm: FormGroup;
@@ -45,11 +47,11 @@ export class RentThisCarComponent implements OnInit {
   years: number[] = [];
   months: number[] = [];
   saveMyCard = false;
+  findeksPointEnough:boolean
+  findeksResponseModel:ResponseModel
 
   createRentalAddForm() {
-    this.rentalAddForm = this.formBuilder.group({
-      //carId:["",Validators.required],
-      //carId:this.carDetailDto.carId,
+    this.rentalAddForm = this.formBuilder.group({      
       customerId: ['', Validators.required],
       rentDate: ['', Validators.required],
       returnDate: ['', Validators.required],
@@ -65,9 +67,21 @@ export class RentThisCarComponent implements OnInit {
     this.createCreditCardForm();
   }
 
+  checkFindeksPoint(customerId:number){
+    this.findeksService.getFindexByCustomerId(customerId).subscribe(response=>{
+      this.findeksPointEnough=true;
+      this.findeksResponseModel.message=response.message
+      this.toastrService.success(response.message,"Başarılı")      
+    },responseError=>{
+      this.findeksPointEnough=false;
+      this.toastrService.error(responseError.error,"Hata")
+    })
+  }
+
   checkRentability() {
     this.isItRentable = null;
-    this.add();    
+    this.add();
+    this.checkFindeksPoint(this.rental.customerId)    
     this.isItRentable = undefined;
     this.rentalService.checkRentability(this.rental).subscribe(
       (response) => {
@@ -92,19 +106,13 @@ export class RentThisCarComponent implements OnInit {
     if (this.rentalAddForm.valid) {
       this.rental = Object.assign({}, this.rentalAddForm.value);
       this.rental.carId = this.carDetailDto.carId;
+    }    
+    this.rentalService.addRental(this.rental).subscribe(data=>{
+      this.toastrService.success(this.carDetailDto.brandName +" "+this.carDetailDto.carName,"Başarıyla Kiralandı")
+    },responseError=>{
+      this.toastrService.error(responseError.error.message)
     }
-    console.log(
-      'add metodundan' + this.rental.carId,
-      this.rental.customerId,
-      this.rental.rentDate,
-      this.rental.returnDate
-    );
-    // this.rentalService.addRental(this.rental).subscribe(data=>{
-    //   this.toastrService.success(this.carDetailDto.brandName +" "+this.carDetailDto.carName,"Başarıyla Kiralandı")
-    // },responseError=>{
-    //   this.toastrService.error(responseError.error.message)
-    // }
-    // )
+    )
   }
   getCarDetails(carId: number) {
     this.carService.getCarDetailDtoByCarId(carId).subscribe((response) => {

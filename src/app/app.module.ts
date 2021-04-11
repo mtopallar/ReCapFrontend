@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import {HttpClientModule} from '@angular/common/http';
+import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms" //2way binding için
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations"
 
@@ -22,6 +22,10 @@ import { RentThisCarComponent } from './components/rental/rent-this-car/rent-thi
 import { BrandAdminComponent } from './components/brand-admin/brand-admin.component';
 import { CarAdminComponent } from './components/car-admin/car-admin.component';
 import { ColorAdminComponent } from './components/color-admin/color-admin.component';
+import { LoginComponent } from './components/login/login.component';
+import { AuthInterceptor } from './interceptors/auth.interceptor';
+import { RegisterComponent } from './components/register/register.component';
+import { UserComponent } from './components/user/user.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +43,10 @@ import { ColorAdminComponent } from './components/color-admin/color-admin.compon
     RentThisCarComponent,
     BrandAdminComponent,
     CarAdminComponent,
-    ColorAdminComponent    
+    ColorAdminComponent,
+    LoginComponent,
+    RegisterComponent,
+    UserComponent,    
   ],
   imports: [
     BrowserModule,
@@ -52,7 +59,9 @@ import { ColorAdminComponent } from './components/color-admin/color-admin.compon
       positionClass:"toast-bottom-right"
     })
   ],
-  providers: [],
+  providers: [
+    {provide:HTTP_INTERCEPTORS, useClass:AuthInterceptor, multi:true}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
