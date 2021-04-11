@@ -4,7 +4,7 @@ import { BrandAdminComponent } from './components/brand-admin/brand-admin.compon
 import { CarAdminComponent } from './components/car-admin/car-admin.component';
 import { CarDetailWithImageComponent } from './components/car-detail-with-image/car-detail-with-image.component';
 import { CarComponent } from './components/car/car.component';
-import { ColorAddComponent } from './components/color-add/color-add.component';
+import { ColorAdminComponent } from './components/color-admin/color-admin.component';
 import { RentThisCarComponent } from './components/rental/rent-this-car/rent-this-car.component';
 import { RentalComponent } from './components/rental/rental.component';
 
@@ -15,10 +15,10 @@ const routes: Routes = [
   {path:"cars/color/:colorId",component:CarComponent},
   {path:"cars/cardetails/:carId",component:CarDetailWithImageComponent},
   {path:"rentals",component:RentalComponent},
-  {path:"rentcar/carId/:carId",component:RentThisCarComponent}, 
-  {path:"colors/add",component:ColorAddComponent},
+  {path:"rentcar/carId/:carId",component:RentThisCarComponent},
   {path:"admin/cars",component:CarAdminComponent},
   {path:"admin/brands",component:BrandAdminComponent},
+  {path:"admin/colors",component:ColorAdminComponent}
 ];
 
 @NgModule({

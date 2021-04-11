@@ -1,63 +1,63 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-import { Brand } from 'src/app/models/brand';
-import { BrandService } from 'src/app/services/brand.service';
+import { Color } from 'src/app/models/color';
+import { ColorService } from 'src/app/services/color.service';
 
 @Component({
-  selector: 'app-brand-admin',
-  templateUrl: './brand-admin.component.html',
-  styleUrls: ['./brand-admin.component.css']
+  selector: 'app-color-admin',
+  templateUrl: './color-admin.component.html',
+  styleUrls: ['./color-admin.component.css']
 })
-export class BrandAdminComponent implements OnInit {
+export class ColorAdminComponent implements OnInit {
 
   constructor(
-    private brandService:BrandService,
+    private colorService:ColorService,
     private toastrService:ToastrService,
     private formBuilder:FormBuilder,    
     ) { }
 
-  allBrands:Brand[];
-  selectedBrand: Brand;
-  allBrandsDataLoaded=false
-  selectedBrandDataLoaded=false
+  allColors:Color[];
+  selectedColor: Color;
+  allColorsDataLoaded=false
+  selectedColorDataLoaded=false
   selectionForAdd:boolean =true
   selectionForEdit:boolean =false
-  brandUpdateForm: FormGroup;
-  brandAddForm: FormGroup;
+  colorUpdateForm: FormGroup;
+  colorAddForm: FormGroup;
 
   ngOnInit(): void {
-    this.getAllBrands();
-    this.createAddBrandForm()    
+    this.getAllColors();
+    this.createAddColorForm()    
   }
 
   selectionAdd(selection:boolean){
     this.selectionForAdd=selection;
     this.selectionForEdit=false;
-    this.resetSelectedBrand(false)    
+    this.resetSelectedColor(false)    
   }
   selectionEdit(selection:boolean){
     this.selectionForAdd=false;
     this.selectionForEdit=selection    
   }
 
-  createBrandUpdateForm() {    
-    this.brandUpdateForm = this.formBuilder.group({      
+  createColorUpdateForm() {    
+    this.colorUpdateForm = this.formBuilder.group({      
       name:["",Validators.required]
     });    
 }
-createAddBrandForm() {    
-  this.brandAddForm = this.formBuilder.group({
+createAddColorForm() {    
+  this.colorAddForm = this.formBuilder.group({
     name:["",Validators.required]
   });    
 }
 
-addBrand(){
-if (this.brandAddForm.valid){
-  let brandModel = Object.assign({},this.brandAddForm.value)
-  this.brandService.addBrand(brandModel).subscribe(response=>{
+addColor(){
+if (this.colorAddForm.valid){
+  let brandModel = Object.assign({},this.colorAddForm.value)
+  this.colorService.addColor(brandModel).subscribe(response=>{
     this.toastrService.success(response.message, 'Başarılı');
-    this.brandAddForm.reset();
+    this.colorAddForm.reset();
   },
   (responseError) => {
     if (responseError.error.ValidationErrors.length > 0) {
@@ -82,32 +82,32 @@ else {
 }
 }
 
-  resetSelectedBrand(newValue:boolean){
-    this.selectedBrandDataLoaded=newValue
+  resetSelectedColor(newValue:boolean){
+    this.selectedColorDataLoaded=newValue
   }
 
-  getAllBrands(){
-    this.brandService.getBrands().subscribe(response=>{
-      this.allBrands=response.data
-      this.allBrandsDataLoaded=true;
+  getAllColors(){
+    this.colorService.getColors().subscribe(response=>{
+      this.allColors=response.data
+      this.allColorsDataLoaded=true;
     })
   }
 
-  getBrandByBrandId(id:number){    
-    this.createBrandUpdateForm()
-    this.brandService.getBrandByBrandId(id).subscribe(response=>{
-      this.selectedBrand=response.data
-      this.selectedBrandDataLoaded=true      
+  getColorByColordId(id:number){    
+    this.createColorUpdateForm()
+    this.colorService.getColorByColorId(id).subscribe(response=>{
+      this.selectedColor=response.data
+      this.selectedColorDataLoaded=true      
     })
   }
 
-  updateBrand(){
-    if (this.brandUpdateForm.valid){
-      let brandModel:Brand = Object.assign({},this.brandUpdateForm.value)
-      brandModel.id=this.selectedBrand.id      
-      this.brandService.updateBrand(brandModel).subscribe(response=>{
+  updateColor(){
+    if (this.colorUpdateForm.valid){
+      let colorModel:Color = Object.assign({},this.colorUpdateForm.value)
+      colorModel.id=this.selectedColor.id      
+      this.colorService.updateColor(colorModel).subscribe(response=>{
         this.toastrService.success(response.message, 'Başarılı');
-        this.brandUpdateForm.reset();
+        this.colorUpdateForm.reset();
       },
       (responseError) => {
         if (responseError.error.ValidationErrors.length > 0) {
@@ -132,10 +132,10 @@ else {
     }
   }
 
-  deleteBrand(id:number){
-     let brandToDelete:Brand
-     this.brandService.getBrandByBrandId(id).subscribe(response=>{ brandToDelete=response.data
-      this.brandService.deleteBrand(brandToDelete).subscribe(response=>{
+  deleteColor(id:number){
+     let colorToDelete:Color
+     this.colorService.getColorByColorId(id).subscribe(response=>{ colorToDelete=response.data
+      this.colorService.deleteColor(colorToDelete).subscribe(response=>{
       this.toastrService.success(response.message,"Silindi")
     },responseError=>{
       this.toastrService.error(responseError.message)

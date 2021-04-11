@@ -19,9 +19,9 @@ import { CarNameFilterPipePipe } from './pipes/car-name-filter-pipe.pipe';
 
 import{ToastrModule} from "ngx-toastr";
 import { RentThisCarComponent } from './components/rental/rent-this-car/rent-this-car.component';
-import { ColorAddComponent } from './components/color-add/color-add.component';
 import { BrandAdminComponent } from './components/brand-admin/brand-admin.component';
 import { CarAdminComponent } from './components/car-admin/car-admin.component';
+import { ColorAdminComponent } from './components/color-admin/color-admin.component';
 
 @NgModule({
   declarations: [
@@ -37,9 +37,9 @@ import { CarAdminComponent } from './components/car-admin/car-admin.component';
     ColorFilterPipePipe,
     CarNameFilterPipePipe,
     RentThisCarComponent,
-    ColorAddComponent,
     BrandAdminComponent,
-    CarAdminComponent    
+    CarAdminComponent,
+    ColorAdminComponent    
   ],
   imports: [
     BrowserModule,
